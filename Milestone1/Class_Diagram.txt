@@ -1,0 +1,34 @@
+classDiagram
+class Issue{
+    +url: string
+    +creator: string
+    +labels: list
+    +state: enum
+    +assignees: list
+    +title: string 
+    +text: string
+    +number: int
+    +created_date: datetime
+    +updated_date: datetime
+    +timeline_url: string
+    +events: list
+}
+
+
+class Event{
+    +event_type: string
+    +author: string
+    +event_date: datetime
+    +label: string
+    +comment: string
+
+}
+
+class State{
+    +state: string
+
+}
+
+
+Event ..> Issue
+Issue ..* State
