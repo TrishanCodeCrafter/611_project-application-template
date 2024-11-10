@@ -9,7 +9,7 @@ from model import Issue,Event
 import config
 class UsageAnalysis:
 
-        def __init__(self):
+        def __init__(self):  
                 """
                 Constructor
                 """
