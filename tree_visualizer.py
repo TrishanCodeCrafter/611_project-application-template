@@ -2,12 +2,15 @@ import json
 import networkx as nx
 import matplotlib.pyplot as plt
 import logging
+from datetime import datetime, timezone
 
 class IssueTreeVisualizer:
-    def __init__(self, file_path: str, issue_limit: int = 100):
+    def __init__(self, file_path: str, issue_limit: int = 100, start_date: str = None, end_date: str = None):
         self.file_path = file_path
         self.issue_limit = issue_limit
         self.relevant_event_types = ['labeled', 'commented', 'cross-referenced', 'closed', 'opened']
+        self.start_date = datetime.fromisoformat(start_date) if start_date else None
+        self.end_date = datetime.fromisoformat(end_date) if end_date else None
         logging.basicConfig(level=logging.INFO)
 
     def load_issues(self):
@@ -16,6 +19,26 @@ class IssueTreeVisualizer:
             issues = json.load(file)
         logging.info(f"Loaded {len(issues)} issues.")
         return issues
+
+    def filter_by_date(self, date_str):
+        if not date_str:
+            return False
+        date = datetime.fromisoformat(date_str)
+        if self.start_date:
+            if date.tzinfo is None:
+                date = date.replace(tzinfo=timezone.utc)
+            if self.start_date.tzinfo is None:
+                self.start_date = self.start_date.replace(tzinfo=timezone.utc)
+            if date < self.start_date:
+                return False
+        if self.end_date:
+            if date.tzinfo is None:
+                date = date.replace(tzinfo=timezone.utc)
+            if self.end_date.tzinfo is None:
+                self.end_date = self.end_date.replace(tzinfo=timezone.utc)
+            if date > self.end_date:
+                return False
+        return True
 
     def build_graph(self, issues):
         logging.info("Building graph...")
@@ -29,6 +52,10 @@ class IssueTreeVisualizer:
             issue_title = issue.get('title', 'No Title')
             issue_state = issue.get('state', 'open')
             issue_color = 'green' if issue_state == 'open' else 'red'
+            created_date = issue.get('created_date')
+
+            if not self.filter_by_date(created_date):
+                continue
 
             G.add_node(issue_number, label=issue_title, color=issue_color)
 
@@ -37,8 +64,11 @@ class IssueTreeVisualizer:
                 if event_type not in self.relevant_event_types:
                     continue
 
-                event_author = event.get('author', 'unknown')
                 event_date = event.get('event_date', 'unknown')
+                if not self.filter_by_date(event_date):
+                    continue
+
+                event_author = event.get('author', 'unknown')
                 event_label = event.get('label', '')
 
                 event_node = f"{issue_number}_{event_type}_{event_date}"

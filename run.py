@@ -66,6 +66,11 @@ elif args.feature == 2:
     pass # TODO call second analysis
 # function with parameter
 elif args.feature == 3:
-    IssueTreeVisualizer('data/poetry_issues.json').run()
+    IssueTreeVisualizer(
+        file_path=args.file_path,
+        issue_limit=args.issue_limit,
+        start_date=args.start_date,
+        end_date=args.end_date
+    ).run()
 else:
     print('Need to specify which feature to run with --feature flag.')
