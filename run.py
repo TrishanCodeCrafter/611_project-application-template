@@ -44,9 +44,22 @@ def parse_args():
         type=str, default='data/poetry_issues.json', 
         help='Path to the JSON file containing issues.'
         )
-    ap.add_argument('--issue_limit', type=int, default=100, help='Limit the number of issues to process.')
-    ap.add_argument('--start_date', type=str, help='Start date in ISO format (YYYY-MM-DD).')
-    ap.add_argument('--end_date', type=str, help='End date in ISO format (YYYY-MM-DD).')
+    ap.add_argument(
+        '--issue_limit', 
+        type=int, 
+        default=100, 
+        help='Limit the number of issues to process.'
+        )
+    ap.add_argument(
+        '--start_date',
+        type=str, 
+        help='Start date in ISO format (YYYY-MM-DD).'
+        )
+    ap.add_argument(
+        '--end_date', 
+        type=str,
+        help='End date in ISO format (YYYY-MM-DD).'
+        )
     
     return ap.parse_args()
 
