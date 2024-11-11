@@ -58,8 +58,8 @@ python run.py --feature 2
 python run.py --feature 3
 ```
 
-Feature 0 runs the example analysis which counts the top 50 users who have submitted issues
+Feature 0 runs the example analysis which counts the top 50 users who have submitted issues.
 Feature 1 counts the label used in the issues and plots them in descending order.
-Feature 2 ...
+Feature 2 runs our resolution time analysis.
 Feature 3 ...
 
