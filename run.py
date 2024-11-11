@@ -11,6 +11,8 @@ import config
 from example_analysis import ExampleAnalysis
 from res_time_analysis import ResolutionTimeAnalysis
 
+from usage_analysis import  UsageAnalysis
+
 
 def parse_args():
     """
@@ -46,9 +48,10 @@ config.overwrite_from_args(args)
 if args.feature == 0:
     ExampleAnalysis().run()
 elif args.feature == 1:
-    pass # TODO call first analysis
+    UsageAnalysis().run()
 elif args.feature == 2:
     ResolutionTimeAnalysis().run()
+
 elif args.feature == 3:
     pass # TODO call third analysis
 else:

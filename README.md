@@ -48,5 +48,18 @@ To make the application easier to debug, runtime configurations are provided to 
 
 The `.vscode/settings.json` also customizes the VSCode user interface sligthly to make navigation and debugging easier. But that is a matter of preference and can be turned off by removing the appropriate settings.
 
-## TODOs:
-- [ ] Branching Strategy
+## Program Description
+
+To run our program use these lines:
+```
+python run.py --feature 0
+python run.py --feature 1
+python run.py --feature 2
+python run.py --feature 3
+```
+
+Feature 0 runs the example analysis which counts the top 50 users who have submitted issues
+Feature 1 counts the label used in the issues and plots them in descending order.
+Feature 2 ...
+Feature 3 ...
+
