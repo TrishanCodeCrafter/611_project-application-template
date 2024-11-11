@@ -9,6 +9,12 @@ import argparse
 
 import config
 from example_analysis import ExampleAnalysis
+from res_time_analysis import ResolutionTimeAnalysis
+
+from usage_analysis import  UsageAnalysis
+from TriageAnalysis import IssueTriageAnalyser 
+from CommonIssueAnalyser import CommonIssuesAnalyser
+from tree_visualizer import IssueTreeVisualizer
 from frequency_of_issue_creation import frequencyOfIssueCreation
 
 
@@ -35,25 +41,49 @@ def parse_args():
     # Optional parameter for analyses focusing on a specific label
     ap.add_argument('--label', '-l', type=str, required=False,
                     help='Optional parameter for analyses focusing on a specific label')
+    ap.add_argument(
+        'file_path', 
+        type=str, default='data/poetry_issues.json', 
+        help='Path to the JSON file containing issues.'
+        )
+    ap.add_argument(
+        '--issue_limit', 
+        type=int, 
+        default=100, 
+        help='Limit the number of issues to process.'
+        )
+    ap.add_argument(
+        '--start_date',
+        type=str, 
+        help='Start date in ISO format (YYYY-MM-DD).'
+        )
+    ap.add_argument(
+        '--end_date', 
+        type=str,
+        help='End date in ISO format (YYYY-MM-DD).'
+        )
     
     return ap.parse_args()
 
-
-
-# Parse feature to call from command line arguments
+# Parse arguments and add them to the configuration
 args = parse_args()
-# Add arguments to config so that they can be accessed in other parts of the application
 config.overwrite_from_args(args)
-    
+
 # Run the feature specified in the --feature flag
 if args.feature == 0:
     ExampleAnalysis().run()
 elif args.feature == 1:
-    pass # TODO call first analysis
+    UsageAnalysis().run()
 elif args.feature == 2:
-    pass # TODO call second analysis
+    ResolutionTimeAnalysis().run()
+
 elif args.feature == 3:
-    pass # TODO call third analysis
+    IssueTreeVisualizer(
+        file_path=args.file_path,
+        issue_limit=args.issue_limit,
+        start_date=args.start_date,
+        end_date=args.end_date
+    ).run()
 elif args.feature == 4:
     frequencyOfIssueCreation().run()
 else:
