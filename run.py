@@ -9,6 +9,7 @@ import argparse
 
 import config
 from example_analysis import ExampleAnalysis
+from res_time_analysis import ResolutionTimeAnalysis
 
 from usage_analysis import  UsageAnalysis
 
@@ -39,21 +40,18 @@ def parse_args():
     
     return ap.parse_args()
 
-
-
-# Parse feature to call from command line arguments
+# Parse arguments and add them to the configuration
 args = parse_args()
-# Add arguments to config so that they can be accessed in other parts of the application
 config.overwrite_from_args(args)
-    
+
 # Run the feature specified in the --feature flag
 if args.feature == 0:
     ExampleAnalysis().run()
 elif args.feature == 1:
     UsageAnalysis().run()
 elif args.feature == 2:
-    pass # TODO call second analysis
-# function with parameter
+    ResolutionTimeAnalysis().run()
+
 elif args.feature == 3:
     pass # TODO call third analysis
 else:
