@@ -15,6 +15,7 @@ from usage_analysis import  UsageAnalysis
 from TriageAnalysis import IssueTriageAnalyser 
 from CommonIssueAnalyser import CommonIssuesAnalyser
 from tree_visualizer import IssueTreeVisualizer
+from frequency_of_issue_creation import frequencyOfIssueCreation
 
 
 def parse_args():
@@ -83,5 +84,7 @@ elif args.feature == 3:
         start_date=args.start_date,
         end_date=args.end_date
     ).run()
+elif args.feature == 4:
+    frequencyOfIssueCreation().run()
 else:
     print('Need to specify which feature to run with --feature flag.')
