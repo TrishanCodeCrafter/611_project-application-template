@@ -1,19 +1,19 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+from data_loader import DataLoader
+from model import Issue
 
-class Issue:
-    def __init__(self, created_date, updated_date, state):
-        self.created_date = created_date
-        self.updated_date = updated_date
-        self.state = state
-
-class IssueTracker:
-    def __init__(self, issues):
-        self.issues = issues
-    
-    def resolution_time_analysis(self):
+class ResolutionTimeAnalysis:
+    def __init__(self):
         """
-        Analyze and plot the resolution times of issues from open to close.
+        Initialize the analysis class and load issues using DataLoader.
+        """
+        data_loader = DataLoader()
+        self.issues = data_loader.load_issues()
+
+    def run(self):
+        """
+        Perform the resolution time analysis and plot the results.
         """
         # Filter out issues that are still open (no resolution time)
         closed_issues = [issue for issue in self.issues if issue.state == 'closed']
@@ -31,13 +31,3 @@ class IssueTracker:
         plt.xlabel("Days to Resolve")
         plt.ylabel("Number of Issues")
         plt.show()
-
-# Example usage
-issues = [
-    Issue("2024-01-01", "2024-01-10", "closed"),
-    Issue("2024-02-01", "2024-02-20", "closed"),
-    Issue("2024-03-01", "2024-03-15", "open"),  # This issue is still open
-]
-
-tracker = IssueTracker(issues)
-tracker.resolution_time_analysis()
