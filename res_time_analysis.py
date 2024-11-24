@@ -9,7 +9,7 @@ class ResolutionTimeAnalysis:
         Initialize the analysis class and load issues using DataLoader.
         """
         data_loader = DataLoader()
-        self.issues = data_loader.load_issues()
+        self.issues = data_loader.get_issues()
 
     def run(self):
         """
