@@ -55,7 +55,7 @@ To run our program use these lines:
 python run.py --feature 0
 python run.py --feature 1
 python run.py --feature 2
-python run.py --feature 3
+python run.py --feature 3 data/poetry_issues.json --issue_limit 10 --start_date 2024-01-01 --end_date 2024-12-31
 ```
 
 - Feature 0 runs the example analysis which counts the top 50 users who have submitted issues.
@@ -64,4 +64,3 @@ python run.py --feature 3
 - Feature 3 visualizes issue dependency and events dependency using a tree.
 - Feature 4 Frequency off the issues are created 
 plotted against time
-
